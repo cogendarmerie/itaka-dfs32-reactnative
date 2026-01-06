@@ -1,6 +1,5 @@
-import { FlatList, StyleSheet } from 'react-native';
+import { FlatList, KeyboardAvoidingView, StyleSheet } from 'react-native';
 
-import ParallaxScrollView from '@/components/parallax-scroll-view';
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { AddGoal } from '@/components/ui/AddGoal';
@@ -29,7 +28,11 @@ export default function HomeScreen() {
   }
 
   return (
-    <ParallaxScrollView>
+    <KeyboardAvoidingView
+      behavior='padding'
+      style={styles.wrapper}
+      keyboardVerticalOffset={100}
+    >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">Objectif de vie!</ThemedText>
       </ThemedView>
@@ -42,11 +45,15 @@ export default function HomeScreen() {
       </SafeAreaView>
       <AddGoal goals={sampleGoals} setGoals={setSampleGoals} />
       <ThemedText type='help'>Cliquez sur un objectif pour éditer</ThemedText>
-    </ParallaxScrollView>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
+  wrapper: {
+    padding: 16,
+    paddingTop: 48,
+  },
   titleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
