@@ -22,6 +22,12 @@ export default function HomeScreen() {
     "Faire un triathlon",
   ]);
 
+  function updateGoal(index: number, updatedGoal: string) {
+    const newGoals = [...sampleGoals];
+    newGoals[index] = updatedGoal;
+    setSampleGoals(newGoals);
+  }
+
   return (
     <ParallaxScrollView>
       <ThemedView style={styles.titleContainer}>
@@ -30,11 +36,12 @@ export default function HomeScreen() {
       <SafeAreaView style={styles.goalsWrapper}>
         <FlatList
           data={sampleGoals}
-          renderItem={({ item }) => <ObjectifCard goal={item} />}
+          renderItem={({ item, index }) => <ObjectifCard goal={item} updateGoal={(updatedGoal) => updateGoal(index, updatedGoal)} />}
           keyExtractor={(item, index) => index.toString()}
         />
       </SafeAreaView>
       <AddGoal goals={sampleGoals} setGoals={setSampleGoals} />
+      <ThemedText type='help'>Cliquez sur un objectif pour éditer</ThemedText>
     </ParallaxScrollView>
   );
 }

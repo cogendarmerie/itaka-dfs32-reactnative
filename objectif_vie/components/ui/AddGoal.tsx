@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, StyleSheet } from "react-native";
+import { Modal, Pressable, StyleSheet } from "react-native";
 import { ThemedText } from "../themed-text";
 import { ThemedView } from "../themed-view";
 import { ThemedButton } from "./ThemedButton";
@@ -34,7 +34,9 @@ export function AddGoal({ goals, setGoals }: { goals: string[]; setGoals: (goals
                         </ThemedView>
                         <ThemedView style={styles.formContainer}>
                             <ThemedTextInput placeholder="Add a goal" value={newGoal} onChangeText={setNewGoal} />
-                            <ThemedButton onPress={handleAddGoal}>Add</ThemedButton>
+                            <Pressable onPress={handleAddGoal}>
+                                <ThemedButton>Add</ThemedButton>
+                            </Pressable>
                         </ThemedView>
                     </ThemedView>
                 </ThemedView>
