@@ -10,7 +10,6 @@ const styles = StyleSheet.create({
     container: {
         padding: 16,
         backgroundColor: '#756092ff',
-        paddingTop: 40,
     },
     title: {
         fontSize: 24,

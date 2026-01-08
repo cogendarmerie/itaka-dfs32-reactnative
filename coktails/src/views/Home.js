@@ -1,10 +1,13 @@
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { getCategories } from '../infrastructure/api';
 import CategorieCard from '../components/CategorieCard';
 import Header from '../components/Header';
+import Loader from '../components/Loader';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = useState([]);
 
   async function fetchCategories() {
@@ -17,21 +20,36 @@ export default function Home() {
   }
 
   useEffect(() => {
+    setIsLoading(true);
     fetchCategories();
+    setIsLoading(false);
   }, []);
 
-  return (
-    <View style={styles.wrapper}>
-        <Header>Categories</Header>
-        <View style={styles.container}>
-            <FlatList 
-                data={categories}
-                keyExtractor={(item, index) => item.idDrink ? item.idDrink : index.toString() }
-                renderItem={({ item }) => <CategorieCard category={item} />}
-            />
+  if (isLoading) {
+    return <Loader isLoading={isLoading} />;
+  }
+
+  return <SafeAreaProvider>
+      <SafeAreaView>
+        <ScrollView
+          refreshControl={<RefreshControl
+            refreshing={isLoading}
+            onRefresh={fetchCategories}
+          />}
+        >
+          <View style={styles.wrapper}>
+            <Header>Categories</Header>
+            <View style={styles.container}>
+                <FlatList 
+                    data={categories}
+                    keyExtractor={(item, index) => item.idDrink ? item.idDrink : index.toString() }
+                    renderItem={({ item }) => <CategorieCard category={item} />}
+                />
+            </View>
         </View>
-    </View>
-  );
+      </ScrollView>
+    </SafeAreaView>
+  </SafeAreaProvider>
 }
 
 const styles = StyleSheet.create({
