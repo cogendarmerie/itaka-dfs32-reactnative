@@ -1,4 +1,4 @@
-import { Image, ScrollView, View } from "react-native";
+import { Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Header from "../components/Header";
 import { useEffect, useState } from "react";
@@ -22,6 +22,8 @@ export default function Coktail({ route, navigation }) {
             }
 
             setCoktail(data);
+
+            console.log("Coktail data:", data);
         } catch (error) {
             console.error("Failed to fetch coktail:", error);
         } finally {
@@ -43,6 +45,9 @@ export default function Coktail({ route, navigation }) {
                 <View>
                     <Header>{coktail?.strDrink}</Header>
                     <Image source={{ uri: coktail?.strDrinkThumb }} style={{ width: '100%', height: 250 }} />
+                    <Pressable>
+                        <Text>{coktail?.strInstructions}</Text>
+                    </Pressable>
                 </View>
             </ScrollView>
         </SafeAreaView>
