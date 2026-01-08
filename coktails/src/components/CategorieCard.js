@@ -1,9 +1,18 @@
-import { StyleSheet, Text, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 export default function CategorieCard({ category }) {
-    return <View style={styles.container}>
-        <Text style={styles.title}>{ category.strCategory }</Text>
-    </View>
+    const naviguation = useNavigation();
+    
+    function handleSelect() {
+        naviguation.navigate('CategoryCoktails', { category: category.strCategory });
+    }
+
+    return <Pressable onPress={handleSelect}>
+        <View style={styles.container}>
+            <Text style={styles.title}>{ category.strCategory }</Text>
+        </View>
+    </Pressable>
 }
 
 const styles = StyleSheet.create({

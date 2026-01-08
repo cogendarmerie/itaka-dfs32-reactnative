@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { FlatList, RefreshControl, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { FlatList, RefreshControl, ScrollView, StyleSheet, View } from 'react-native';
 import { getCategories } from '../infrastructure/api';
 import CategorieCard from '../components/CategorieCard';
 import Header from '../components/Header';
@@ -38,7 +38,7 @@ export default function Home() {
           />}
         >
           <View style={styles.wrapper}>
-            <Header>Categories</Header>
+            <Header>Catégories</Header>
             <View style={styles.container}>
                 <FlatList 
                     data={categories}
@@ -59,7 +59,6 @@ const styles = StyleSheet.create({
   container: {
       flex: 1,
       backgroundColor: '#fff',
-      marginTop: 50,
       padding: 24,
       flexDirection: 'column',
       gap: 16,
